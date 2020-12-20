@@ -1,1 +1,1 @@
-# selenium-automation
+# selenium test otomasyon projesi
