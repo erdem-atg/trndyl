@@ -13,34 +13,21 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MainPage {
-
-    static final String ROOT_URL = "http://www.trendyol.com/";
-
-    private static final String HOME_PAGE_URL = ROOT_URL + "Butik/Liste/Erkek";
-
     private final WebDriver driver;
     private final ExplicitWaitMethods wait;
 
-    @FindBy(id = "logo")
-    private WebElement logo;
-
-    @FindBy(className = "butik")
-    private List<WebElement> boutiques;
-
-    @FindBy(className = "navigation-icon-user")
-    private WebElement loginIcon;
-
     @FindBy(id = "login-email")
-    private WebElement emailInput;
-
+    private WebElement email;
     @FindBy(id = "login-password-input")
-    private WebElement passwordInput;
-
+    private WebElement password;
+    @FindBy(className = "navigation-icon-user")
+    private WebElement login;
     @FindBy(className = "submit")
-    private WebElement loginSubmitButton;
-
+    private WebElement submitButton;
     @FindBy(id = "error-box-wrapper")
-    private WebElement errorBox;
+    private WebElement error;
+    @FindBy(className = "component-item")
+    private List<WebElement> btqs;
 
     public MainPage(final WebDriver driver) {
         this.driver = driver;
@@ -48,51 +35,36 @@ public class MainPage {
         wait = new ExplicitWaitMethods(driver);
     }
 
-    public void go() {
-        driver.get(HOME_PAGE_URL);
+    public void at() {
+        driver.get("http://www.trendyol.com/Butik/Liste/Erkek");
     }
 
-    public void checkLogoDisplay() {
-        wait.forElementToBeDisplayed(5, logo, "Logo");
-    }
-
-    public List<String> getBoutiqueLinks() {
-        return boutiques.stream()
-                .map(webElement -> webElement
-                        .findElement(By.tagName("a"))
-                        .getAttribute("href")
+    public List<String> getBtqLinks() {
+        return btqs.stream().map(webElement -> webElement.findElement(By.tagName("a")).getAttribute("href")
                 ).collect(Collectors.toList());
     }
 
-    public List<String> getBoutiqueImageSources() {
-        return boutiques.stream()
-                .map(webElement -> webElement
-                        .findElement(By.tagName("img"))
-                        .getAttribute("src")
-                ).collect(Collectors.toList());
+    public void loginPopup() {
+        login.click();
+        wait.forElementToBeDisplayed(5, email, "Email");
+        wait.forElementToBeDisplayed(5, password, "Password");
+        wait.forElementToBeDisplayed(5, submitButton, "Login button");
     }
 
-    public void openLoginModal() {
-        loginIcon.click();
-        wait.forElementToBeDisplayed(5, emailInput, "Email");
-        wait.forElementToBeDisplayed(5, passwordInput, "Password");
-        wait.forElementToBeDisplayed(5, loginSubmitButton, "Login button");
-    }
-
-    public void login(String email, String password) {
-        emailInput.sendKeys(email);
-        passwordInput.sendKeys(password);
-        loginSubmitButton.click();
+    public void login(String strEmail, String strPassword) {
+        email.sendKeys(strEmail);
+        password.sendKeys(strPassword);
+        submitButton.click();
     }
 
     public void clearInputs() {
-        emailInput.clear();
-        passwordInput.clear();
+        email.clear();
+        password.clear();
     }
 
     public Boolean checkErrorMessageVisible(String errorMessage) {
-        wait.forElementToBeDisplayed(5, errorBox, "Error message");
-        return errorBox.getText().contains(errorMessage);
+        wait.forElementToBeDisplayed(5, error, "message");
+        return error.getText().contains(errorMessage);
     }
 
     public void scrollDownToBottom() {
@@ -102,6 +74,4 @@ public class MainPage {
             wait.explicitlyFor(2);
         });
     }
-
-
 }

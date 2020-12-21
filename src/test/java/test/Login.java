@@ -26,9 +26,8 @@ public class Login extends Base {
 
     @Test
     public void runDataDrivenLoginScenarios() throws IOException {
-        homepage.go();
-        homepage.checkLogoDisplay();
-        homepage.openLoginModal();
+        homepage.at();
+        homepage.loginPopup();
 
         getLoginScenarios().forEach(loginScenario -> {
 

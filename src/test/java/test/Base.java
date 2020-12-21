@@ -1,8 +1,6 @@
 package test;
 
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
-import net.lightbody.bmp.client.ClientUtil;
+
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,15 +17,10 @@ public class Base {
 
     private static final String FIREFOX = "firefox";
     public WebDriver driver;
-    public BrowserMobProxy proxy;
+;
 
     public void setUp(String browser) throws MalformedURLException {
-
-        proxy = new BrowserMobProxyServer();
-        proxy.start();
-        Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
         DesiredCapabilities dc = new DesiredCapabilities();
-        dc.setCapability(CapabilityType.PROXY, seleniumProxy);
 
         if (browser.equals(FIREFOX)) {
             System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
@@ -42,14 +35,11 @@ public class Base {
             driver = new ChromeDriver(dc);
         }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        proxy.newHar("test-traffic");
     }
 
     public void tearDown() {
         if (driver != null) {
             driver.quit();
-            proxy.stop();
         }
     }
 }

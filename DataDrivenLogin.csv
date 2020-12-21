@@ -1,3 +1,4 @@
 EMAIL;PASSWORD;FIELD_VALIDATION_MESSAGE;SCENARIO
-;;Lütfen geçerli bir e-posta adresi giriniz.;Email/Þifre girilmediðinde hata mesajý gösterilmeli
-erdemyildirim@gmail.com;;Lütfen þifrenizi giriniz.;Þifre girilmediðinde hata mesajý gösterilmeli
+;;Lütfen geçerli bir e-posta adresi giriniz.;Email ve Þifre girilmediðinde hata mesajý gösterilmeli.
+erdemcp@hotmail.com;;E-posta adresiniz ve/veya þifreniz hatalý.;Hatalý þifre girildiðinde hata mesajý gösterilmeli.
+erdemyildirim@gmail.com;;Lütfen þifrenizi giriniz.;Þifre girilmediðinde hata mesajý gösterilmeli.

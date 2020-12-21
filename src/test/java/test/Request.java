@@ -27,15 +27,11 @@ public class Request extends Base {
     }
 
     @Test
-    public void checkAllBoutiqueLinksAndReportResponseCodes() throws Exception {
-        mainPage.go();
-        mainPage.checkLogoDisplay();
+    public void sendRequestToBtqLinksAndGetResponses() throws Exception {
+        mainPage.at();
 
-        List<ResponseStatus> responseStatusList = mainPage.getBoutiqueLinks()
-                .stream()
-                .map(this::getStatus)
-                //getstatus -> list butiklist deki her birinin statusnu list' at
-                .collect(Collectors.toList());
+        List<ResponseStatus> responseStatusList = mainPage.getBtqLinks()
+                .stream().map(this::getStatus).collect(Collectors.toList());
 
         new StatusReport().write(responseStatusList);
     }

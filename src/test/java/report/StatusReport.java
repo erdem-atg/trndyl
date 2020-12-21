@@ -10,17 +10,15 @@ import java.util.List;
 public class StatusReport {
 
     private static final String DELIMITER = ";";
-    private static final String REPORT_FILE = "BoutiqueStatus.csv";
+    private static final String REPORT_FILE = "BtqStatus.csv";
     private static final String CUSTOM_REPORT_DIR = "/target/";
 
     public void write(List<ResponseStatus> responseStatusList) throws IOException {
         try (PrintWriter pw = new PrintWriter(new File(getOutputPath() + REPORT_FILE))) {
             pw.println("LINK".concat(DELIMITER).concat("STATUS"));
-            responseStatusList.stream() //erdem
-                    .map(responseStatus -> responseStatus.getLink()
-                            .concat(DELIMITER)
-                            .concat(String.valueOf(responseStatus.getStatusCode())))
-                    .forEach(pw::println);
+            responseStatusList.stream().map(responseStatus -> responseStatus.getLink()
+                            .concat(DELIMITER).concat(String.valueOf(responseStatus.getStatusCode())))
+                            .forEach(pw::println);
         }
     }
 

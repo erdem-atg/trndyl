@@ -1,7 +1,5 @@
 package helper;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 public class LoginScenario {
     public LoginScenario(String email, String password, String fieldValidationErrorMessage, String scenarioName) {
         this.email = email;
